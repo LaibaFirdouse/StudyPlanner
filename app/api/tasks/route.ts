@@ -1,85 +1,195 @@
-// // import { connectDB } from "@/lib/db";
-// // import Task from "@/lib/models/Task";
-// // import { NextResponse } from "next/server";
-
-// // export async function PATCH(req: Request) {
-// //     await connectDB();
-
-// //     const { taskId } = await req.json();
-
-// //     const task = await Task.findById(taskId);
-
-// //     task.completed = !task.completed;
-// //     await task.save();
-
-// //     return NextResponse.json({ success: true });
-// // }
 // import { connectDB } from "@/lib/db";
 // import Task from "@/lib/models/Task";
+// import User from "@/lib/models/User";
 // import { NextResponse } from "next/server";
 // import mongoose from "mongoose";
+// import { getServerSession } from "next-auth";
+// import { authOptions } from "@/lib/auth";
+
 
 // export async function PATCH(req: Request) {
 //     try {
 //         await connectDB();
 
-//         const body = await req.json();
-//         const { taskId } = body;
+//         const { taskId } = await req.json();
 
-//         if (!mongoose.Types.ObjectId.isValid(taskId)) {
-//             return NextResponse.json({ error: "Invalid taskId" }, { status: 400 });
+//         if (!taskId || !mongoose.Types.ObjectId.isValid(taskId)) {
+//             return NextResponse.json(
+//                 { error: "Invalid taskId" },
+//                 { status: 400 }
+//             );
 //         }
 
 //         const task = await Task.findById(taskId);
 
 //         if (!task) {
-//             return NextResponse.json({ error: "Task not found" }, { status: 404 });
+//             return NextResponse.json(
+//                 { error: "Task not found" },
+//                 { status: 404 }
+//             );
 //         }
+
+//         // 🔥 TOGGLE TASK
+//         const wasCompleted = task.completed;
 
 //         task.completed = !task.completed;
 //         await task.save();
 
+//         if (!wasCompleted && task.completed) {
+//             const today = new Date();
+//             const lastActive = user.lastActive;
+
+//             if (!lastActive) {
+//                 user.streak = 1;
+//             } else {
+//                 const diff = Math.floor(
+//                     (today.getTime() - new Date(lastActive).getTime()) /
+//                     (1000 * 60 * 60 * 24)
+//                 );
+
+//                 if (diff === 1) {
+//                     user.streak += 1;
+//                 } else if (diff > 1) {
+//                     user.streak = 1;
+//                 }
+//             }
+
+//             user.lastActive = today;
+//             await user.save();
+//         }
+
+//         // 🔥 TEMP USER (until auth added)
+
+
+//         const session = await getServerSession(authOptions);
+
+//         if (!session?.user?.email) {
+//             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+//         }
+
+//         let user = await User.findOne({ email: session.user.email });
+
+//         if (!user) {
+//             user = await User.create({
+//                 email: session.user.email,
+//                 streak: 0,
+//                 lastActive: null,
+//             });
+//         }
+
+//         if (user) {
+//             const today = new Date();
+//             const lastActive = user.lastActive;
+
+//             if (!lastActive) {
+//                 user.streak = 1;
+//             } else {
+//                 const diff = Math.floor(
+//                     (today.getTime() - new Date(lastActive).getTime()) /
+//                     (1000 * 60 * 60 * 24)
+//                 );
+
+//                 if (diff === 1) {
+//                     user.streak += 1;
+//                 } else if (diff > 1) {
+//                     user.streak = 1;
+//                 }
+//             }
+
+//             user.lastActive = today;
+//             await user.save();
+//         }
+
 //         return NextResponse.json({ success: true });
+
 //     } catch (error) {
 //         console.error("TASK PATCH ERROR:", error);
-//         return NextResponse.json({ error: "Server error" }, { status: 500 });
+
+//         return NextResponse.json(
+//             { error: "Server error" },
+//             { status: 500 }
+//         );
 //     }
 // }
 import { connectDB } from "@/lib/db";
 import Task from "@/lib/models/Task";
+import User from "@/lib/models/User";
 import { NextResponse } from "next/server";
+import mongoose from "mongoose";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 export async function PATCH(req: Request) {
     try {
         await connectDB();
 
-        const { taskId } = await req.json();
+        // 🔥 SESSION
+        const session = await getServerSession(authOptions);
 
-        if (!taskId) {
-            return NextResponse.json(
-                { error: "Missing taskId" },
-                { status: 400 }
-            );
+        if (!session?.user?.email) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
+        // 🔥 USER (GET OR CREATE)
+        let user = await User.findOne({ email: session.user.email });
+
+        if (!user) {
+            user = await User.create({
+                email: session.user.email,
+                streak: 0,
+                lastActive: null,
+            });
+        }
+
+        // 🔥 REQUEST DATA
+        const { taskId } = await req.json();
+
+        if (!taskId || !mongoose.Types.ObjectId.isValid(taskId)) {
+            return NextResponse.json({ error: "Invalid taskId" }, { status: 400 });
+        }
+
+        // 🔥 FIND TASK
         const task = await Task.findById(taskId);
 
         if (!task) {
-            return NextResponse.json(
-                { error: "Task not found" },
-                { status: 404 }
-            );
+            return NextResponse.json({ error: "Task not found" }, { status: 404 });
         }
 
-        // 🔥 TOGGLE LOGIC
-        task.completed = !task.completed;
+        // 🔥 TOGGLE
+        const wasCompleted = task.completed;
 
+        task.completed = !task.completed;
         await task.save();
+
+        // 🔥 STREAK ONLY WHEN COMPLETING
+        if (!wasCompleted && task.completed) {
+            const today = new Date();
+            const lastActive = user.lastActive;
+
+            if (!lastActive) {
+                user.streak = 1;
+            } else {
+                const diff = Math.floor(
+                    (today.getTime() - new Date(lastActive).getTime()) /
+                    (1000 * 60 * 60 * 24)
+                );
+
+                if (diff === 1) {
+                    user.streak += 1;
+                } else if (diff > 1) {
+                    user.streak = 1;
+                }
+            }
+
+            user.lastActive = today;
+            await user.save();
+        }
 
         return NextResponse.json({ success: true });
 
     } catch (error) {
         console.error("TASK PATCH ERROR:", error);
+
         return NextResponse.json(
             { error: "Server error" },
             { status: 500 }

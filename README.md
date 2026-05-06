@@ -1,36 +1,190 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Study Planner 
 
-## Getting Started
+A modern full-stack study planning application built with **Next.js 16**, designed to help users create structured learning plans, track progress in real time, and stay consistent with their goals.
 
-First, run the development server:
+Users can generate personalized study plans for skills, technologies, languages, and self-improvement topics, then monitor completion through an interactive dashboard with analytics and progress tracking.
+
+---
+
+## Features
+
+### Authentication
+- Google OAuth login using NextAuth
+- User-specific dashboards and plans
+- Secure API routes with session-based access
+
+### Study Plan Management
+- Create structured study plans
+- Dynamic task generation using a rule-engine approach
+- User-specific plan storage
+- Prevent duplicate plans for the same goal
+
+### Progress Tracking
+- Real-time task completion updates
+- Instant progress recalculation without page refresh
+- Per-plan completion percentage
+- Task status indicators
+
+### Dashboard Analytics
+- Total plans
+- Average progress
+- Completed plans
+- Active plans tracking
+
+### Plan Controls
+- Delete plans instantly
+- Secure ownership-based deletion
+- Protected APIs preventing unauthorized access
+
+### Modern UI/UX
+- Responsive layout
+- Clean dashboard experience
+- Smooth transitions and hover interactions
+- Empty states and loading states
+- Product-style card design
+
+---
+
+# Tech Stack
+
+## Frontend
+- Next.js 16
+- React
+- TypeScript
+- Tailwind CSS
+
+## Backend
+- Next.js API Routes
+- MongoDB
+- Mongoose
+
+## Authentication
+- NextAuth.js
+- Google OAuth
+
+## Deployment
+- Vercel
+
+---
+
+
+
+---
+
+# Key Engineering Decisions
+
+### User-Isolated Architecture
+Every plan is tied to the authenticated user to ensure:
+- secure access
+- isolated dashboards
+- protected CRUD operations
+
+---
+
+### Rule-Based Plan Generation
+Instead of hardcoded static tasks, the app uses a structured rule-engine approach for generating plans dynamically based on:
+- goal
+- level
+- duration
+
+This creates scalable foundations for future AI integration.
+
+---
+
+### Optimistic UI Updates
+Task completion updates instantly on the frontend before waiting for full refetches, improving responsiveness and user experience.
+
+---
+
+# Getting Started
+
+## 1. Clone the repository
+
+```bash
+git clone https://github.com/LaibaFirdouse/StudyPlanner
+cd StudyPlanner
+```
+
+---
+
+## 2. Install dependencies
+
+```bash
+npm install
+```
+
+---
+
+## 3. Setup environment variables
+
+Create a `.env.local` file:
+
+```env
+MONGODB_URI=your_mongodb_uri
+
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+
+NEXTAUTH_SECRET=your_secret
+NEXTAUTH_URL=http://localhost:3000
+```
+
+---
+
+## 4. Run development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# 🔮 Future Improvements
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- AI-powered smart plan generation
+- Personalized recommendations
+- Streak system enhancements
+- Resource recommendations
+- Calendar integration
+- Notifications and reminders
+- Mobile-first optimization
+- Plan editing support
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+# Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The application is deployed on **Vercel** with MongoDB Atlas as the database backend.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+# 📸 Screenshots
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+_Add dashboard and plan page screenshots here_
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+# 🧠 What I Learned
+
+Through building this project, I gained practical experience with:
+- Next.js App Router
+- Authentication flows
+- Protected API architecture
+- MongoDB schema design
+- Real-time UI state management
+- User-based data isolation
+- Full-stack application deployment
+
+---
+
+# 📄 License
+
+MIT License
+
+---
+
+# 👩‍💻 Author
+
+### Laiba Firdouse
+
+Frontend-focused full-stack developer passionate about building polished, user-centric products with modern web technologies.
