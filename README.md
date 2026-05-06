@@ -67,8 +67,6 @@ Users can generate personalized study plans for skills, technologies, languages,
 
 ---
 
-
-
 ---
 
 # Key Engineering Decisions
@@ -139,7 +137,7 @@ npm run dev
 
 ---
 
-# 🔮 Future Improvements
+# Future Improvements
 
 - AI-powered smart plan generation
 - Personalized recommendations
@@ -158,32 +156,24 @@ The application is deployed on **Vercel** with MongoDB Atlas as the database bac
 
 ---
 
-# 📸 Screenshots
+# Screenshots
 
-_Add dashboard and plan page screenshots here_
+## Dashboard
+![Dashboard](./public/screenshots/dashboard.png)
 
----
+## Study Plan
+![Study Plan](./public/screenshots/plans.png)
+![Study Plan](./public/screenshots/plans1.png)
 
-# 🧠 What I Learned
 
-Through building this project, I gained practical experience with:
-- Next.js App Router
-- Authentication flows
-- Protected API architecture
-- MongoDB schema design
-- Real-time UI state management
-- User-based data isolation
-- Full-stack application deployment
+## Authentication
+![Authentication](./public/screenshots/prompt.png)
+
 
 ---
 
-# 📄 License
 
-MIT License
-
----
-
-# 👩‍💻 Author
+# Author
 
 ### Laiba Firdouse
 

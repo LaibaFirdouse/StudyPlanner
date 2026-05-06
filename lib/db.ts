@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI as string;
 
-// ✅ Proper global typing
+
 declare global {
   var mongooseGlobal: {
     conn: typeof mongoose | null;
@@ -10,7 +10,7 @@ declare global {
   };
 }
 
-// ✅ Initialize once
+// Initialize once
 if (!global.mongooseGlobal) {
   global.mongooseGlobal = {
     conn: null,
@@ -25,10 +25,10 @@ export async function connectDB() {
     throw new Error("Missing MONGODB_URI");
   }
 
-  // ✅ reuse connection
+  // reuse connection
   if (cached.conn) return cached.conn;
 
-  // ✅ create connection
+  // create connection
   if (!cached.promise) {
     cached.promise = mongoose.connect(MONGODB_URI);
   }

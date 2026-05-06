@@ -1,4 +1,3 @@
-// 🔹 Utility: clean & format goal
 function formatGoal(goal: string) {
     return goal
         .replace(/learn|study|master/gi, "")
@@ -7,11 +6,11 @@ function formatGoal(goal: string) {
         .replace(/^./, (c) => c.toUpperCase());
 }
 
-// 🔹 Detect category
+// Detect category
 function detectCategory(goal: string) {
     const g = goal.toLowerCase();
 
-    // 💻 Programming / Tech
+    // Programming / Tech
     if (
         g.includes("react") ||
         g.includes("javascript") ||
@@ -26,7 +25,7 @@ function detectCategory(goal: string) {
         return "programming";
     }
 
-    // 🌍 Natural Language
+    // Natural Language
     if (
         g.includes("english") ||
         g.includes("spanish") ||
@@ -37,7 +36,7 @@ function detectCategory(goal: string) {
         return "language";
     }
 
-    // 🎨 Creative
+    // Creative
     if (
         g.includes("design") ||
         g.includes("ui") ||
@@ -49,7 +48,7 @@ function detectCategory(goal: string) {
         return "creative";
     }
 
-    // 🧠 Academic
+    // Academic
     if (
         g.includes("math") ||
         g.includes("physics") ||
@@ -60,11 +59,11 @@ function detectCategory(goal: string) {
         return "academic";
     }
 
-    // 🧩 Default → Life Skill
+    // Default → Life Skill
     return "life";
 }
 
-// 🔹 Get roadmap based on category
+// Get roadmap based on category
 function getRoadmap(category: string, goal: string) {
     const g = formatGoal(goal);
 
@@ -127,7 +126,7 @@ function getRoadmap(category: string, goal: string) {
     }
 }
 
-// 🔹 Apply level adjustments
+// Apply level adjustments
 function applyLevel(roadmap: string[], level: string) {
     if (level === "advanced") {
         return roadmap.map((r) => `Advanced ${r}`);
@@ -137,10 +136,10 @@ function applyLevel(roadmap: string[], level: string) {
         return roadmap.map((r) => `Intermediate ${r}`);
     }
 
-    return roadmap; // beginner = no prefix
+    return roadmap;
 }
 
-// 🔹 MAIN FUNCTION
+// MAIN FUNCTION
 export function generateTasks(goal: string, level: string, days: number) {
     const category = detectCategory(goal);
 

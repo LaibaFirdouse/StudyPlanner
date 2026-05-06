@@ -15,7 +15,7 @@ export default function PlanPage() {
     const [loading, setLoading] = useState(true);
     const router = useRouter();
 
-    // 🔹 FETCH PLAN + TASKS
+    // FETCH PLAN + TASKS
     useEffect(() => {
         if (!id) return;
 
@@ -39,57 +39,16 @@ export default function PlanPage() {
         fetchData();
     }, [id]);
 
-    // 🔹 LOADING STATE
+    // LOADING STATE
     if (loading) return <div className="p-6">Loading...</div>;
     if (!plan) return <div className="p-6">Plan not found</div>;
 
-    // 🔹 PROGRESS CALCULATION
+    // PROGRESS CALCULATION
     const completed = tasks.filter((t) => t.completed).length;
     const total = tasks.length;
     const progress = total ? (completed / total) * 100 : 0;
 
-    // 🔹 TOGGLE TASK
-    // const handleToggle = async (taskId: string) => {
-    //     try {
-    //         const res = await fetch("/api/tasks", {
-    //             method: "PATCH",
-    //             headers: { "Content-Type": "application/json" },
-    //             body: JSON.stringify({ taskId }),
-    //         });
 
-    //         if (!res.ok) throw new Error("Toggle failed");
-
-    //         // optimistic UI update
-    //         setTasks((prev) =>
-    //             prev.map((t) =>
-    //                 t._id === taskId ? { ...t, completed: !t.completed } : t
-    //             )
-    //         );
-    //     } catch (err) {
-    //         console.error("TOGGLE ERROR:", err);
-    //     }
-    // };
-    // const handleToggle = async (taskId: string) => {
-    //     try {
-    //         const res = await fetch("/api/tasks", {
-    //             method: "PATCH",
-    //             headers: { "Content-Type": "application/json" },
-    //             body: JSON.stringify({ taskId }),
-    //         });
-
-    //         if (!res.ok) throw new Error("Toggle failed");
-
-    //         setTasks((prev) =>
-    //             prev.map((t) =>
-    //                 t._id === taskId
-    //                     ? { ...t, completed: !t.completed }
-    //                     : t
-    //             )
-    //         );
-    //     } catch (err) {
-    //         console.error("Toggle error:", err);
-    //     }
-    // };
     const handleToggle = async (taskId: string) => {
         try {
             await fetch("/api/tasks", {
@@ -100,7 +59,7 @@ export default function PlanPage() {
                 body: JSON.stringify({ taskId }),
             });
 
-            // 🔥 INSTANT UI UPDATE
+            // INSTANT UI UPDATE
             setTasks((prev: any[]) =>
                 prev.map((t) =>
                     t._id === taskId

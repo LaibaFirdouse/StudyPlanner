@@ -32,11 +32,11 @@ export default function Dashboard() {
     }, []);
 
 
-    // 🔥 FORMAT TITLE
+    // FORMAT TITLE
     const formatTitle = (text: string) =>
         text.charAt(0).toUpperCase() + text.slice(1);
 
-    // 🔥 REAL ANALYTICS (FRONTEND BASED)
+    // REAL ANALYTICS (FRONTEND BASED)
     const totalPlans = plans.length;
 
     const avgProgress =
@@ -48,7 +48,7 @@ export default function Dashboard() {
 
     const completedPlans = plans.filter((p) => p.progress === 100).length;
 
-    // 🔹 LOADING
+    // LOADING
     if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-black text-zinc-400">
@@ -57,7 +57,7 @@ export default function Dashboard() {
         );
     }
 
-    // 🔹 EMPTY STATE
+    // EMPTY STATE
     if (plans.length === 0) {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center text-center bg-black text-white px-4">
@@ -83,7 +83,7 @@ export default function Dashboard() {
 
                 <div className="p-8 rounded-3xl bg-gradient-to-br from-zinc-900/60 to-black/60 border border-white/6 shadow-2xl ring-1 ring-violet-700/10">
 
-                    {/* 🔥 HEADER */}
+                    {/* HEADER */}
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
                         <div>
                             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white">Your Study Plans</h1>
@@ -114,7 +114,7 @@ export default function Dashboard() {
                         <div className="ml-auto text-sm text-zinc-400">Keep the momentum — complete at least one task today.</div>
                     </div>
 
-                    {/* 🔥 REAL ANALYTICS */}
+                    {/* ANALYTICS */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
 
                         <div className="p-8 min-h-[120px] rounded-2xl bg-white/6 bg-clip-padding backdrop-blur-lg border border-white/10 shadow-2xl flex flex-col justify-center">
@@ -134,7 +134,7 @@ export default function Dashboard() {
 
                     </div>
 
-                    {/* 🔥 PLAN GRID */}
+                    {/* PLAN GRID */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {plans.map((plan: any) => {
                             const progress = plan.progress ?? 0;
