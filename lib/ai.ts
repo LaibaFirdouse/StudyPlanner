@@ -1,16 +1,7 @@
-// export async function generatePlan() {
-//     return [
-//         {
-//             day: 1,
-//             tasks: ["Learn basics", "Setup project"]
-//         },
-//         {
-//             day: 2,
-//             tasks: ["Components", "Props"]
-//         },
-//         {
-//             day: 3,
-//             tasks: ["State", "Hooks"]
-//         }
-//     ];
-// }
+
+import OpenAI from "openai";
+
+export const ai = new OpenAI({
+    apiKey: process.env.GROQ_API_KEY,
+    baseURL: "https://api.groq.com/openai/v1",
+});

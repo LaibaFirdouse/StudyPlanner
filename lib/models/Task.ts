@@ -1,10 +1,31 @@
 import mongoose from "mongoose";
 
-const TaskSchema = new mongoose.Schema({
-    planId: mongoose.Schema.Types.ObjectId,
-    day: Number,
-    title: String,
-    completed: { type: Boolean, default: false },
-});
+const TaskSchema = new mongoose.Schema(
+    {
+        planId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Plan",
+        },
 
-export default mongoose.models.Task || mongoose.model("Task", TaskSchema);
+        day: Number,
+
+        title: String,
+
+        description: String,
+
+        completed: {
+            type: Boolean,
+            default: false,
+        },
+        resources: [
+            {
+                title: String,
+                url: String,
+            },
+        ],
+    },
+    { timestamps: true }
+);
+
+export default mongoose.models.Task ||
+    mongoose.model("Task", TaskSchema);
