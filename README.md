@@ -241,6 +241,20 @@ npm run dev
 
 ---
 
+# Testing
+
+The project includes basic Jest testing coverage for:
+
+- utility functions
+- React components
+- API validation logic
+
+Run tests:
+
+```bash
+npm test
+```
+
 # AI Resource Flow
 
 ```txt
